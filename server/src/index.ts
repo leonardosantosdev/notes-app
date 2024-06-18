@@ -8,6 +8,10 @@ const prisma = new PrismaClient();
 app.use(express.json());
 app.use(cors());
 
+app.use("/", (req, res) => {
+  res.send("server is running");
+});
+
 app.get("/api/notes", async (req, res) => {
   const notes = await prisma.note.findMany();
 
@@ -69,10 +73,6 @@ app.delete("/api/notes/:id", async (req, res) => {
   } catch (error) {
     res.status(500).send("Something went wrong");
   }
-});
-
-app.use("/", (req, res) => {
-  res.send("server is running");
 });
 
 app.listen(5000, () => {
